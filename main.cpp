@@ -28,6 +28,7 @@ int main(int argc, char* argv[]) {
     // Select a random word
     string solution = strtoupper(words[randomWordIndex]);
 
+    bool solved = false;
     int remainingTries = 6;
     while (remainingTries != 0) {
         string solutionTemp = solution;
@@ -36,11 +37,13 @@ int main(int argc, char* argv[]) {
         cin >> attempt;
 
         attempt = strtoupper(attempt);
+        int correctCount = 0;
 
         for (int i = 0; i < attempt.length(); i++) {
             if (attempt[i] == solutionTemp[i]) {
                 solutionTemp[i] = '-';
                 cout << green(attempt[i]) << " ";
+                correctCount++;
             } else {
                 int pos = contains(solutionTemp, attempt[i]);
                 if (pos != -1) {
@@ -53,10 +56,19 @@ int main(int argc, char* argv[]) {
         }
         cout << endl;
 
+        if (correctCount == solution.length()) {
+            solved = true;
+            break;
+        }
+
         remainingTries--;
     }
 
-    cout << "The word was: " << solution << endl;
+    if (solved) {
+        cout << "Splendid!" << endl;
+    } else {
+        cout << "The word was: " << solution << "\n\nBetter luck next time!" << endl;
+    }
 
     return 0;
 }
