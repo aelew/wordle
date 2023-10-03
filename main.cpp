@@ -1,11 +1,13 @@
 #include <iostream>
+#include <fstream>
+#include <vector>
 #include "utils.h"
 
 using namespace std;
 
-int contains(string word, char c) {
+int contains(string word, char letter) {
     for (int i = 0; i < word.length(); i++) {
-        if (word[i] == c) {
+        if (word[i] == letter) {
             return i;
         }
     }
@@ -13,17 +15,23 @@ int contains(string word, char c) {
 }
 
 int main(int argc, char* argv[]) {
-    // TODO: select this randomly from the words.txt
-    string solution = "SLATE";
+    // Get words from `words.txt`
+    vector<string> words = get_words();
+    if (words.size() == 0) {
+        cerr << "Your words.txt file does not exist or has no words to choose from!" << endl;
+        return 1;
+    }
+    
+    int randomWordIndex = get_random_number(0, words.size() - 1);
+
+    // Select a random word
+    string solution = strtoupper(words[randomWordIndex]);
     string originalSolution = solution;
 
     string attempt;
     cin >> attempt;
 
-    // cout << green(attempt[0]) << " ";
-    // cout << yellow(attempt[1]) << " ";
-    // cout << gray(attempt[2]) << " ";
-    // cout << endl;
+    attempt = strtoupper(attempt);
 
     for (int i = 0; i < attempt.length(); i++) {
         if (attempt[i] == solution[i]) {
@@ -40,6 +48,8 @@ int main(int argc, char* argv[]) {
         }
     }
     cout << endl;
+
+    cout << originalSolution << endl;
 
     return 0;
 }

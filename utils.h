@@ -7,6 +7,40 @@
 #define RESET "\033[0m"
 
 #include <string>
+#include <vector>
+#include <fstream>
+#include <iostream>
+
+std::vector<std::string> get_words() {
+    std::vector<std::string> words;
+
+    std::ifstream file;
+    file.open("words.txt", std::ios::in);
+    if (!file.is_open()) {
+        return words;
+    }
+
+    std::string word;
+    while (getline(file, word)) {
+        words.push_back(word);
+    }
+
+    file.close();
+    return words;
+}
+
+int get_random_number(int min, int max) {
+    srand((unsigned) time(NULL));
+    int range = max - min + 1;
+    return min + (rand() % range);
+}
+
+std::string strtoupper(std::string str) {
+    for (int i = 0; i < str.length(); i++) {
+        str[i] = toupper(str[i]);
+    }
+    return str;
+}
 
 std::string green(char letter) {
     std::string result = GREEN_BG;
