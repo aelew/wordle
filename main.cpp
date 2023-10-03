@@ -22,34 +22,41 @@ int main(int argc, char* argv[]) {
         return 1;
     }
     
+    // Get a random index in the words vector
     int randomWordIndex = get_random_number(0, words.size() - 1);
 
     // Select a random word
     string solution = strtoupper(words[randomWordIndex]);
-    string originalSolution = solution;
 
-    string attempt;
-    cin >> attempt;
+    int remainingTries = 6;
+    while (remainingTries != 0) {
+        string solutionTemp = solution;
 
-    attempt = strtoupper(attempt);
+        string attempt;
+        cin >> attempt;
 
-    for (int i = 0; i < attempt.length(); i++) {
-        if (attempt[i] == solution[i]) {
-            solution[i] = '-';
-            cout << green(attempt[i]) << " ";
-        } else {
-            int pos = contains(solution, attempt[i]);
-            if (pos != -1) {
-                cout << yellow(attempt[i]) << " ";
-                solution[pos] = '-';
+        attempt = strtoupper(attempt);
+
+        for (int i = 0; i < attempt.length(); i++) {
+            if (attempt[i] == solutionTemp[i]) {
+                solutionTemp[i] = '-';
+                cout << green(attempt[i]) << " ";
             } else {
-                cout << gray(attempt[i]) << " ";
+                int pos = contains(solutionTemp, attempt[i]);
+                if (pos != -1) {
+                    cout << yellow(attempt[i]) << " ";
+                    solutionTemp[pos] = '-';
+                } else {
+                    cout << gray(attempt[i]) << " ";
+                }
             }
         }
-    }
-    cout << endl;
+        cout << endl;
 
-    cout << originalSolution << endl;
+        remainingTries--;
+    }
+
+    cout << "The word was: " << solution << endl;
 
     return 0;
 }
