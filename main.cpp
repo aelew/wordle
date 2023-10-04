@@ -5,15 +5,6 @@
 
 using namespace std;
 
-int contains(string word, char letter) {
-    for (int i = 0; i < word.length(); i++) {
-        if (word[i] == letter) {
-            return i;
-        }
-    }
-    return -1;
-}
-
 int main(int argc, char* argv[]) {
     // Get words from `words.txt`
     vector<string> words = get_words();
@@ -21,7 +12,7 @@ int main(int argc, char* argv[]) {
         cerr << "Your words.txt file does not exist or has no words to choose from!" << endl;
         return 1;
     }
-    
+
     // Get a random index in the words vector
     int randomWordIndex = get_random_number(0, words.size() - 1);
 
@@ -30,6 +21,7 @@ int main(int argc, char* argv[]) {
 
     bool solved = false;
     int remainingTries = 6;
+
     while (remainingTries != 0) {
         string solutionTemp = solution;
 
@@ -47,8 +39,12 @@ int main(int argc, char* argv[]) {
             } else {
                 int pos = contains(solutionTemp, attempt[i]);
                 if (pos != -1) {
-                    cout << yellow(attempt[i]) << " ";
-                    solutionTemp[pos] = '-';
+                    if (attempt[i] == solutionTemp[pos]) {
+                        cout << gray(attempt[i]) << " ";
+                    } else {
+                        cout << yellow(attempt[i]) << " ";
+                        solutionTemp[pos] = '-';
+                    }
                 } else {
                     cout << gray(attempt[i]) << " ";
                 }

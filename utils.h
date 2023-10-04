@@ -42,6 +42,15 @@ std::string strtoupper(std::string str) {
     return str;
 }
 
+int contains(std::string word, char letter) {
+    for (int i = 0; i < word.length(); i++) {
+        if (word[i] == letter) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 std::string green(char letter) {
     std::string result = GREEN_BG;
     result += letter;
