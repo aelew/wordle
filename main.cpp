@@ -5,6 +5,16 @@
 
 using namespace std;
 
+
+bool contains(vector<int> numbers, int value) {
+    for (int i = 0; i < numbers.size(); i++) {
+        if (numbers[i] == value) {
+            return true;
+        }
+    }
+    return false;
+}
+
 int main(int argc, char* argv[]) {
     // Get words from `words.txt`
     vector<string> words = get_words();
@@ -31,25 +41,34 @@ int main(int argc, char* argv[]) {
         attempt = strtoupper(attempt);
         int correctCount = 0;
 
+        vector<int> greenPos;
+        vector<int> yellowPos;
+
         for (int i = 0; i < attempt.length(); i++) {
             if (attempt[i] == solutionTemp[i]) {
                 solutionTemp[i] = '-';
-                cout << green(attempt[i]) << " ";
+                greenPos.push_back(i);
                 correctCount++;
-            } else {
-                int pos = contains(solutionTemp, attempt[i]);
-                if (pos != -1) {
-                    if (attempt[i] == solutionTemp[pos]) {
-                        cout << gray(attempt[i]) << " ";
-                    } else {
-                        cout << yellow(attempt[i]) << " ";
-                        solutionTemp[pos] = '-';
-                    }
-                } else {
-                    cout << gray(attempt[i]) << " ";
-                }
             }
         }
+
+        for (int i = 0; i < attempt.length(); i++) {
+            int pos = contains(solutionTemp, attempt[i]);
+            if (pos != -1) {
+                yellowPos.push_back(i);
+            }
+        }
+
+        for (int i = 0; i < attempt.length(); i++) {
+            if (contains(greenPos, i)) {
+                cout << green(attempt[i]) << " ";
+            } else if (contains(yellowPos, i)) {
+                cout << yellow(attempt[i]) << " ";
+            } else {
+                cout << gray(attempt[i]) << " ";
+            }
+        }
+
         cout << endl;
 
         if (correctCount == solution.length()) {
