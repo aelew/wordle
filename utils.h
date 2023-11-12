@@ -51,6 +51,15 @@ int contains(std::string word, char letter) {
     return -1;
 }
 
+bool contains(std::vector<int> numbers, int value) {
+    for (int i = 0; i < numbers.size(); i++) {
+        if (numbers[i] == value) {
+            return true;
+        }
+    }
+    return false;
+}
+
 std::string green(char letter) {
     std::string result = GREEN_BG;
     result += letter;
@@ -70,6 +79,44 @@ std::string gray(char letter) {
     result += letter;
     result += RESET;
     return result;
+}
+
+bool check_attempt(std::string solution, std::string attempt) {
+    int correctCount = 0;
+
+    std::vector<int> greenPos;
+    std::vector<int> yellowPos;
+
+    for (int i = 0; i < attempt.length(); i++) {
+        if (attempt[i] == solution[i]) {
+            solution[i] = '-';
+            greenPos.push_back(i);
+            correctCount++;
+        }
+    }
+
+    for (int i = 0; i < attempt.length(); i++) {
+        int pos = contains(solution, attempt[i]);
+        if (pos != -1) {
+            yellowPos.push_back(i);
+        }
+    }
+
+    for (int i = 0; i < attempt.length(); i++) {
+        if (contains(greenPos, i)) {
+            std::cout << green(attempt[i]);
+        } else if (contains(yellowPos, i)) {
+            std::cout << yellow(attempt[i]);
+        } else {
+            std::cout << gray(attempt[i]);
+        }
+        if (i < attempt.length() - 1) {
+            std::cout << " ";
+        }
+    }
+
+    std::cout << std::endl;
+    return correctCount == solution.length();
 }
 
 #endif
