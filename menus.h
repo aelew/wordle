@@ -49,9 +49,10 @@ void play() {
     file.close();
 }
 
-void displayMainMenu() {
-    // Use while loop so the main menu is displayed after the selected option is complete
-    while (true) {
+void start() {
+    bool exited = false;
+    // Use a while loop so the main menu is displayed after the selected option is complete
+    while (!exited) {
         std::cout << "=========================" << std::endl;
         std::cout << "    WELCOME TO WORDLE" << std::endl;
         std::cout << "=========================" << std::endl;
@@ -73,7 +74,7 @@ void displayMainMenu() {
                 break;
             case 5:
                 std::cout << "Goodbye!" << std::endl;
-                exit(0);
+                exited = true;
                 break;
             default:
                 std::cerr << "Uh oh! You didn't enter a valid option." << std::endl;
