@@ -6,12 +6,12 @@
 #include <vector>
 #include "utils.h"
 
-int play() {
+void play() {
      // Get words from `words.txt`
     std::vector<std::string> words = get_words();
     if (words.size() == 0) {
         std::cerr << "Your words.txt file does not exist or has no words to choose from!" << std::endl;
-        return 1;
+        return;
     }
 
     // Get a random index in the words vector
@@ -47,42 +47,42 @@ int play() {
     file.open("stats.txt", std::ios::app);
     file << solution << "," << solved << std::endl;
     file.close();
-
-    return 0;
 }
 
-int displayMainMenu() {
-    std::cout << "=========================" << std::endl;
-    std::cout << "    WELCOME TO WORDLE" << std::endl;
-    std::cout << "=========================" << std::endl;
-    std::cout << std::endl;
-    std::cout << "1. Play Wordle" << std::endl;
-    std::cout << "2. How to Play" << std::endl;
-    std::cout << "3. Statistics Summary" << std::endl;
-    std::cout << "4. Reset Statistics" << std::endl;
-    std::cout << "5. Exit" << std::endl;
-    std::cout << std::endl;
-    std::cout << "Select an option: ";
+void displayMainMenu() {
+    // Use while loop so the main menu is displayed after the selected option is complete
+    while (true) {
+        std::cout << "=========================" << std::endl;
+        std::cout << "    WELCOME TO WORDLE" << std::endl;
+        std::cout << "=========================" << std::endl;
+        std::cout << std::endl;
+        std::cout << "1. Play Wordle" << std::endl;
+        std::cout << "2. How to Play" << std::endl;
+        std::cout << "3. Statistics Summary" << std::endl;
+        std::cout << "4. Reset Statistics" << std::endl;
+        std::cout << "5. Exit" << std::endl;
+        std::cout << std::endl;
+        std::cout << "Select an option: ";
 
-    int option;
-    std::cin >> option;
+        int option;
+        std::cin >> option;
 
-    int exitCode = 0;
-
-    switch (option) {
-        case 1:
-            exitCode = play();
-            break;
-        case 5:
-            exitCode = 0;
-            break;
-        default:
-            std::cerr << "Uh oh! You didn't enter a valid option." << std::endl;
-            exitCode = -1;
-            break;
+        switch (option) {
+            case 1:
+                play();
+                break;
+            case 5:
+                std::cout << "Goodbye!" << std::endl;
+                exit(0);
+                break;
+            default:
+                std::cerr << "Uh oh! You didn't enter a valid option." << std::endl;
+                // Reset the fail state of cin
+                std::cin.clear();
+                std::cin.ignore();
+                break;
+        }
     }
-
-    return exitCode;
 }
 
 #endif
