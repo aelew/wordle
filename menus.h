@@ -19,12 +19,14 @@ void play() {
 
     // Select a random word
     // string solution = strtoupper(words[randomWordIndex]);
-    std::string solution = "SLATE";
+    std::string solution = "SOLVE";
 
     bool solved = false;
     int remainingTries = 6;
 
     while (remainingTries != 0) {
+        std::cout << "Your guess: ";
+
         std::string attempt;
         std::cin >> attempt;
         attempt = strtoupper(attempt);
@@ -37,11 +39,15 @@ void play() {
         remainingTries--;
     }
 
+    std::cout << std::endl;
+
     if (solved) {
         std::cout << "Splendid! You win!" << std::endl;
     } else {
         std::cout << "The word was: " << solution << "\n\nBetter luck next time!" << std::endl;
     }
+
+    std::cout << std::endl;
 
     std::ofstream file;
     file.open("stats.txt", std::ios::app);
