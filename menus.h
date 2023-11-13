@@ -49,6 +49,37 @@ void play() {
     file.close();
 }
 
+void display_tutorial() {
+    std::cout << "=============================================" << std::endl;
+    std::cout << "                 HOW TO PLAY" << std::endl;
+    std::cout << "=============================================" << std::endl;
+    std::cout << "Guess the Wordle in 6 tries." << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << "HOW TO PLAY:" << std::endl;
+    std::cout << "- Each guess must be a valid 5 letter word." << std::endl;
+    std::cout << "- The color of the tiles will change to show" << std::endl;
+    std::cout << "  you how close your guess was to the word." << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << "  ---  ---  ---  ---  --- " << std::endl;
+    std::cout << " | W || E || A || R || Y | " << std::endl;
+    std::cout << "  ---  ---  ---  ---  --- " << std::endl;
+    std::cout << "W is in the word and in the correct spot." << std::endl;
+    std::cout << std::endl;
+    std::cout << "  ---  ---  ---  ---  --- " << std::endl;
+    std::cout << " | P || I || L || L || S | " << std::endl;
+    std::cout << "  ---  ---  ---  ---  --- " << std::endl;
+    std::cout << "I is in the word and in the correct spot." << std::endl;
+    std::cout << std::endl;
+    std::cout << "  ---  ---  ---  ---  --- " << std::endl;
+    std::cout << " | V || A || G || U || E | " << std::endl;
+    std::cout << "  ---  ---  ---  ---  --- " << std::endl;
+    std::cout << "U is in the word and in the correct spot." << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
 void start() {
     bool exited = false;
     // Use a while loop so the main menu is displayed after the selected option is complete
@@ -72,6 +103,9 @@ void start() {
             case 1:
                 play();
                 break;
+            case 2:
+                display_tutorial();
+                break;
             case 5:
                 std::cout << "Goodbye!" << std::endl;
                 exited = true;
@@ -82,6 +116,12 @@ void start() {
                 std::cin.clear();
                 std::cin.ignore();
                 break;
+        }
+
+        if (option >= 1 && option <= 5) {
+            std::cout << "Press [enter] to continue" << std::endl;
+            std::cin.ignore();
+            std::cin.get();
         }
     }
 }
