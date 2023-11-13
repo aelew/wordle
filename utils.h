@@ -12,6 +12,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include "Statistic.h"
 
 std::vector<std::string> getWords() {
     std::vector<std::string> words;
@@ -29,6 +30,45 @@ std::vector<std::string> getWords() {
 
     file.close();
     return words;
+}
+
+std::vector<std::string> split(std::string str, char delimiter) {
+    std::vector<std::string> parts;
+    std::string currentPart = ""; 
+    for (int i = 0; i < str.size(); i++) {
+        if( str[i] == delimiter) {
+            if (currentPart != "") {
+                parts.push_back(currentPart);
+                currentPart = "";
+            } 
+            continue;
+        }
+        currentPart += str[i];
+    }
+    if (currentPart.size() != 0) {
+        parts.push_back(currentPart);
+    }
+    return parts;
+}
+
+std::vector<Statistic> getStatistics() {
+    std::vector<Statistic> stats;
+
+    std::ifstream file;
+    file.open("stats.txt", std::ios::in);
+    if (!file.is_open()) {
+        return stats;
+    }
+
+    std::string line;
+    while (getline(file, line)) {
+        std::vector<std::string> parts = split(line, ',');
+        Statistic stat(parts[0], parts[1], stoi(parts[2]));
+        stats.push_back(stat);
+    }
+
+    file.close();
+    return stats;
 }
 
 int getRandomNumber(int min, int max) {

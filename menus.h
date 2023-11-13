@@ -2,9 +2,12 @@
 #define MENUS_H
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <vector>
+
 #include "utils.h"
+#include "Statistic.h"
 
 void play() {
      // Get words from `words.txt`
@@ -23,6 +26,7 @@ void play() {
 
     bool solved = false;
     int remainingTries = 6;
+    std::string statData = "";
 
     while (remainingTries != 0) {
         std::cout << "Your guess: ";
@@ -30,9 +34,11 @@ void play() {
         std::string attempt;
         std::cin >> attempt;
         attempt = strtoupper(attempt);
+        solved = checkAttempt(solution, attempt);
 
-        if (checkAttempt(solution, attempt)) {
-            solved = true;
+        statData += solution + "," + attempt + "," + (solved ? "1" : "0") + "\n";
+
+        if (solved) {
             break;
         }
 
@@ -51,7 +57,7 @@ void play() {
 
     std::ofstream file;
     file.open("stats.txt", std::ios::app);
-    file << solution << "," << solved << std::endl;
+    file << statData;
     file.close();
 }
 
@@ -86,6 +92,28 @@ void showTutorial() {
     std::cout << std::endl;
 }
 
+void showSummary() {
+    std::vector<Statistic> stats = getStatistics();
+    std::cout << "==========================" << std::endl;
+    std::cout << "    STATISTICS SUMMARY" << std::endl;
+    std::cout << "==========================" << std::endl;
+    std::cout << "Times Played:" << std::setw(13) << std::right << stats.size() << std::endl;
+    std::cout << "Average Attempts:" << std::setw(9) << std::right << "4" << std::endl;
+    std::cout << "Win Percentage:" << std::setw(11) << std::right << "83.3%" << std::endl;
+    std::cout << "Current Streak:" << std::setw(11) << std::right << "5" << std::endl;
+    std::cout << "Longest Streak:" << std::setw(11) << std::right << "5" << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << "--------------------------" << std::endl;
+    std::cout << "WORD     ATTEMPTS      WIN" << std::endl;
+    std::cout << "--------------------------" << std::endl;
+    std::cout << "ABOVE" << std::setw(12) << "4" << std::setw(9) << std::right << "Yes" << std::endl;
+    std::cout << "ABOVE           4      Yes" << std::endl;
+    std::cout << "ABOVE           4      Yes" << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
 void start() {
     bool exited = false;
     // Use a while loop so the main menu is displayed after the selected option is complete
@@ -111,6 +139,9 @@ void start() {
                 break;
             case 2:
                 showTutorial();
+                break;
+            case 3:
+                showSummary();
                 break;
             case 5:
                 std::cout << "Goodbye!" << std::endl;
