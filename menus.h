@@ -8,14 +8,14 @@
 
 void play() {
      // Get words from `words.txt`
-    std::vector<std::string> words = get_words();
+    std::vector<std::string> words = getWords();
     if (words.size() == 0) {
         std::cerr << "Your words.txt file does not exist or has no words to choose from!" << std::endl;
         return;
     }
 
     // Get a random index in the words vector
-    int randomWordIndex = get_random_number(0, words.size() - 1);
+    int randomWordIndex = getRandomNumber(0, words.size() - 1);
 
     // Select a random word
     // string solution = strtoupper(words[randomWordIndex]);
@@ -29,7 +29,7 @@ void play() {
         std::cin >> attempt;
         attempt = strtoupper(attempt);
 
-        if (check_attempt(solution, attempt)) {
+        if (checkAttempt(solution, attempt)) {
             solved = true;
             break;
         }
@@ -49,7 +49,7 @@ void play() {
     file.close();
 }
 
-void display_tutorial() {
+void showTutorial() {
     std::cout << "=============================================" << std::endl;
     std::cout << "                 HOW TO PLAY" << std::endl;
     std::cout << "=============================================" << std::endl;
@@ -104,7 +104,7 @@ void start() {
                 play();
                 break;
             case 2:
-                display_tutorial();
+                showTutorial();
                 break;
             case 5:
                 std::cout << "Goodbye!" << std::endl;

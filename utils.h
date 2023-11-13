@@ -11,7 +11,7 @@
 #include <fstream>
 #include <iostream>
 
-std::vector<std::string> get_words() {
+std::vector<std::string> getWords() {
     std::vector<std::string> words;
 
     std::ifstream file;
@@ -29,7 +29,7 @@ std::vector<std::string> get_words() {
     return words;
 }
 
-int get_random_number(int min, int max) {
+int getRandomNumber(int min, int max) {
     srand((unsigned) time(NULL));
     int range = max - min + 1;
     return min + (rand() % range);
@@ -81,7 +81,7 @@ std::string gray(char letter) {
     return result;
 }
 
-bool check_attempt(std::string solution, std::string attempt) {
+bool checkAttempt(std::string solution, std::string attempt) {
     int correctCount = 0;
 
     std::vector<int> greenPos;
