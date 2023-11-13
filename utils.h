@@ -2,8 +2,10 @@
 #define UTILS_H
 
 #define YELLOW "\033[33m"
-#define GRAY "\033[37m"
+#define GRAY "\033[90m"
 #define GREEN "\033[32m"
+
+#define BOLD "\033[1m"
 #define RESET "\033[0m"
 
 #include <string>
