@@ -1,9 +1,9 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#define GREEN_BG "\033[42;30m"
-#define YELLOW_BG "\033[43;30m"
-#define GRAY_BG "\033[47;30m"
+#define YELLOW "\033[33m"
+#define GRAY "\033[37m"
+#define GREEN "\033[32m"
 #define RESET "\033[0m"
 
 #include <string>
@@ -60,23 +60,23 @@ bool contains(std::vector<int> numbers, int value) {
     return false;
 }
 
-std::string green(char letter) {
-    std::string result = GREEN_BG;
-    result += letter;
+std::string green(std::string text) {
+    std::string result = GREEN;
+    result += text;
     result += RESET;
     return result;
 }
 
-std::string yellow(char letter) {
-    std::string result = YELLOW_BG;
-    result += letter;
+std::string yellow(std::string text) {
+    std::string result = YELLOW;
+    result += text;
     result += RESET;
     return result;
 }
 
-std::string gray(char letter) {
-    std::string result = GRAY_BG;
-    result += letter;
+std::string gray(std::string text) {
+    std::string result = GRAY;
+    result += text;
     result += RESET;
     return result;
 }
@@ -102,20 +102,36 @@ bool checkAttempt(std::string solution, std::string attempt) {
         }
     }
 
+    std::string firstLine = "", secondLine = "", thirdLine = "";
+
     for (int i = 0; i < attempt.length(); i++) {
+        std::string firstLineText = " --- ";
+
+        std::string secondLineText = "| ";
+        secondLineText += attempt[i];
+        secondLineText += " |";
+
+        std::string thirdLineText = " --- ";
+
         if (contains(greenPos, i)) {
-            std::cout << green(attempt[i]);
+            firstLine += green(firstLineText);
+            secondLine += green(secondLineText);
+            thirdLine += green(thirdLineText);
         } else if (contains(yellowPos, i)) {
-            std::cout << yellow(attempt[i]);
+            firstLine += yellow(firstLineText);
+            secondLine += yellow(secondLineText);
+            thirdLine += yellow(thirdLineText);
         } else {
-            std::cout << gray(attempt[i]);
-        }
-        if (i < attempt.length() - 1) {
-            std::cout << " ";
+            firstLine += gray(firstLineText);
+            secondLine += gray(secondLineText);
+            thirdLine += gray(thirdLineText);
         }
     }
 
-    std::cout << std::endl;
+    std::cout << firstLine << std::endl;
+    std::cout << secondLine << std::endl;
+    std::cout << thirdLine << std::endl;
+
     return correctCount == solution.length();
 }
 
