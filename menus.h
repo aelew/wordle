@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "utils.h"
-#include "Statistic.h"
+#include "statistic.h"
 
 void play() {
      // Get words from `words.txt`

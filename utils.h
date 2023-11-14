@@ -12,7 +12,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
-#include "Statistic.h"
+#include "statistic.h"
 
 std::vector<std::string> getWords() {
     std::vector<std::string> words;
@@ -36,7 +36,7 @@ std::vector<std::string> split(std::string str, char delimiter) {
     std::vector<std::string> parts;
     std::string currentPart = ""; 
     for (int i = 0; i < str.size(); i++) {
-        if( str[i] == delimiter) {
+        if (str[i] == delimiter) {
             if (currentPart != "") {
                 parts.push_back(currentPart);
                 currentPart = "";
