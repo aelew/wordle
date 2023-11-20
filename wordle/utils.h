@@ -1,6 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <ostream>
 #define YELLOW "\033[33m"
 #define GRAY "\033[90m"
 #define GREEN "\033[32m"
@@ -69,6 +70,12 @@ std::vector<Statistic> getStatistics() {
 
     file.close();
     return stats;
+}
+
+void clearStatistics() {
+    std::ofstream file;
+    file.open("stats.txt", std::ofstream::out);
+    file.close();
 }
 
 int getRandomNumber(int min, int max) {

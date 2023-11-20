@@ -92,7 +92,7 @@ void showTutorial() {
     std::cout << std::endl;
 }
 
-void showSummary() {
+void showStatistics() {
     std::vector<Statistic> stats = getStatistics();
     std::cout << "==========================" << std::endl;
     std::cout << "    STATISTICS SUMMARY" << std::endl;
@@ -141,7 +141,11 @@ void start() {
                 showTutorial();
                 break;
             case 3:
-                showSummary();
+                showStatistics();
+                break;
+            case 4:
+                clearStatistics();
+                showStatistics();
                 break;
             case 5:
                 std::cout << "Goodbye!" << std::endl;
