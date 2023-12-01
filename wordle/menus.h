@@ -58,15 +58,16 @@ void showStatistics() {
     }
 
     // Calculate average attempts
+    int words = 0;
     int attempts = 0;
-    int wordCount = wordAttemptMap.size();
     for (const auto& entry : wordAttemptMap) {
         // Only consider words that were solved at least once
         if (entry.second.second) {
             attempts += entry.second.first;
+            words++;
         }
     }
-    int averageAttempts = wordCount == 0 ? 0 : attempts / wordCount;
+    int averageAttempts = words == 0 ? 0 : attempts / words;
 
     // Calculate win rate
     int wins = 0;
