@@ -48,18 +48,42 @@ void showStatistics() {
     // TODO: Calculate average attempts
 
 
-    // TODO: Calculate win rate
+    // Calculate win rate
     int wins = 0;
     for (int i = 0; i < statCount; i++) {
         if (stats[i].won) {
             wins++;
         }
     }
-    // cast to float to prevent integer division
-    float winRate = wins / ((float) statCount);
+    float winRate = wins / ((float) statCount); // cast to float to prevent integer division
 
-    // TODO: Calculate current streak
-
+    // Calculate current streak
+    int currentStreak = 0;
+    for (int i = statCount - 1; i >= 0; i--) {
+        if (stats[i].won) {
+            currentStreak++;
+        } else {
+            break;
+        }
+    }
+    
+    // Calculate longest streak
+    int streak = 0;
+    int longestStreak = 0;
+    for (int i = 0; i < statCount; i++) {
+        if (stats[i].won) {
+            streak++;
+        } else {
+            if (streak > longestStreak) {
+                longestStreak = streak;
+            }
+            streak = 0;
+        }
+    }
+    // needed for if the player never loses
+    if (streak > longestStreak) {
+        longestStreak = streak;
+    }
 
     // TODO: Calculate attempts and isWin for each word
     
@@ -69,8 +93,8 @@ void showStatistics() {
     std::cout << "Times Played:" << std::setw(13) << std::right << stats.size() << std::endl;
     std::cout << "Average Attempts:" << std::setw(9) << std::right << "4" << std::endl;
     std::cout << "Win Percentage:" << std::setw(10) << std::right << std::fixed << std::setprecision(1) << winRate * 100 << "%" << std::endl;
-    std::cout << "Current Streak:" << std::setw(11) << std::right << "5" << std::endl;
-    std::cout << "Longest Streak:" << std::setw(11) << std::right << "5" << std::endl;
+    std::cout << "Current Streak:" << std::setw(11) << std::right << currentStreak << std::endl;
+    std::cout << "Longest Streak:" << std::setw(11) << std::right << longestStreak << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout << "--------------------------" << std::endl;
