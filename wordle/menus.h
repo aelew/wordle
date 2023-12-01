@@ -1,6 +1,7 @@
 #ifndef MENUS_H
 #define MENUS_H
 
+#include <map>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -45,8 +46,26 @@ void showStatistics() {
     std::vector<Statistic> stats = getStatistics();
     int statCount = stats.size();
     
-    // TODO: Calculate average attempts
+    // Calculate attempts/whether player has won for each word
+    std::map<std::string, std::pair<int, bool>> wordAttemptMap; // <word, <attempts, hasWon>>
+    for (int i = 0; i < statCount; i++) {
+        Statistic stat = stats[i];
+        std::pair<int, bool>& value = wordAttemptMap[stat.word];
+        value.first++;
+        if (stat.won) {
+            value.second = true;
+        }
+    }
 
+    // Calculate average attempts
+    int attempts = 0;
+    for (const auto& entry : wordAttemptMap) {
+        // Only consider words that were solved at least once
+        if (entry.second.second) {
+            attempts += entry.second.first;
+        }
+    }
+    int averageAttempts = attempts / wordAttemptMap.size();
 
     // Calculate win rate
     int wins = 0;
@@ -80,18 +99,16 @@ void showStatistics() {
             streak = 0;
         }
     }
-    // needed for if the player never loses
     if (streak > longestStreak) {
+        // needed for if the player never loses
         longestStreak = streak;
     }
 
-    // TODO: Calculate attempts and isWin for each word
-    
     std::cout << "==========================" << std::endl;
     std::cout << "    STATISTICS SUMMARY" << std::endl;
     std::cout << "==========================" << std::endl;
     std::cout << "Times Played:" << std::setw(13) << std::right << stats.size() << std::endl;
-    std::cout << "Average Attempts:" << std::setw(9) << std::right << "4" << std::endl;
+    std::cout << "Average Attempts:" << std::setw(9) << std::right << averageAttempts << std::endl;
     std::cout << "Win Percentage:" << std::setw(10) << std::right << std::fixed << std::setprecision(1) << winRate * 100 << "%" << std::endl;
     std::cout << "Current Streak:" << std::setw(11) << std::right << currentStreak << std::endl;
     std::cout << "Longest Streak:" << std::setw(11) << std::right << longestStreak << std::endl;
@@ -100,9 +117,9 @@ void showStatistics() {
     std::cout << "--------------------------" << std::endl;
     std::cout << "WORD     ATTEMPTS      WIN" << std::endl;
     std::cout << "--------------------------" << std::endl;
-    std::cout << "ABOVE" << std::setw(12) << "4" << std::setw(9) << std::right << "Yes" << std::endl;
-    std::cout << "ABOVE           4      Yes" << std::endl;
-    std::cout << "ABOVE           4      Yes" << std::endl;
+    for (const auto& entry : wordAttemptMap) {
+        std::cout << entry.first << std::setw(12) << entry.second.first << std::setw(9) << std::right << (entry.second.second ? "Yes" : "No") << std::endl;
+    }
     std::cout << std::endl;
     std::cout << std::endl;
 }

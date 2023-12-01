@@ -17,8 +17,8 @@ struct Game {
         int randomWordIndex = getRandomNumber(0, words.size() - 1);
 
         // Select a random word
-        // string solution = strtoupper(words[randomWordIndex]);
-        std::string solution = "SOLVE";
+        std::string solution = strtoupper(words[randomWordIndex]);
+        // std::string solution = "SOLVE";
 
         bool solved = false;
         int remainingTries = 6;
