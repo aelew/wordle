@@ -60,7 +60,7 @@ void showStatistics() {
     // Calculate average attempts
     int words = 0;
     int attempts = 0;
-    for (const auto& entry : wordAttemptMap) {
+    for (const auto entry : wordAttemptMap) {
         // Only consider words that were solved at least once
         if (entry.second.second) {
             attempts += entry.second.first;

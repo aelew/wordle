@@ -17,8 +17,8 @@ struct Game {
         int randomWordIndex = getRandomNumber(0, words.size() - 1);
 
         // Select a random word
-        std::string solution = strtoupper(words[randomWordIndex]);
-        // std::string solution = "SOLVE";
+        // std::string solution = strtoupper(words[randomWordIndex]);
+        std::string solution = "SOLVE";
 
         bool solved = false;
         int remainingTries = 6;
@@ -30,15 +30,34 @@ struct Game {
             std::string attempt;
             std::cin >> attempt;
             attempt = strtoupper(attempt);
-            solved = checkAttempt(solution, attempt);
 
-            statData += solution + "," + attempt + "," + (solved ? "1" : "0") + "\n";
+            bool valid = false;
 
-            if (solved) {
-                break;
+            // Search words.txt and allowed.txt to see if the guess is a valid 5-letter word
+            for (int i = 0; i < words.size(); i++) {
+                if (attempt == strtoupper(words[i])) {
+                    valid = true;
+                    break;
+                }
+            }
+            std::vector<std::string> allowedWords = getAllowedWords();
+            for (int i = 0; i < allowedWords.size(); i++) {
+                if (attempt == strtoupper(allowedWords[i])) {
+                    valid = true;
+                    break;
+                }
             }
 
-            remainingTries--;
+            if (valid) {
+                solved = checkAttempt(solution, attempt);
+                statData += solution + "," + attempt + "," + (solved ? "1" : "0") + "\n";
+                if (solved) {
+                    break;
+                }
+                remainingTries--;
+            } else {
+                std::cout << "That doesn't seem like a valid word. Try again!" << std::endl;
+            }
         }
 
         std::cout << std::endl;

@@ -33,6 +33,24 @@ std::vector<std::string> getWords() {
     return words;
 }
 
+std::vector<std::string> getAllowedWords() {
+    std::vector<std::string> words;
+
+    std::ifstream file;
+    file.open("allowed.txt", std::ios::in);
+    if (!file.is_open()) {
+        return words;
+    }
+
+    std::string word;
+    while (getline(file, word)) {
+        words.push_back(word);
+    }
+
+    file.close();
+    return words;
+}
+
 std::vector<std::string> split(std::string str, char delimiter) {
     std::vector<std::string> parts;
     std::string currentPart = ""; 
