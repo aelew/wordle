@@ -43,12 +43,32 @@ void showTutorial() {
 
 void showStatistics() {
     std::vector<Statistic> stats = getStatistics();
+    int statCount = stats.size();
+    
+    // TODO: Calculate average attempts
+
+
+    // TODO: Calculate win rate
+    int wins = 0;
+    for (int i = 0; i < statCount; i++) {
+        if (stats[i].won) {
+            wins++;
+        }
+    }
+    // cast to float to prevent integer division
+    float winRate = wins / ((float) statCount);
+
+    // TODO: Calculate current streak
+
+
+    // TODO: Calculate attempts and isWin for each word
+    
     std::cout << "==========================" << std::endl;
     std::cout << "    STATISTICS SUMMARY" << std::endl;
     std::cout << "==========================" << std::endl;
     std::cout << "Times Played:" << std::setw(13) << std::right << stats.size() << std::endl;
     std::cout << "Average Attempts:" << std::setw(9) << std::right << "4" << std::endl;
-    std::cout << "Win Percentage:" << std::setw(11) << std::right << "83.3%" << std::endl;
+    std::cout << "Win Percentage:" << std::setw(10) << std::right << std::fixed << std::setprecision(1) << winRate * 100 << "%" << std::endl;
     std::cout << "Current Streak:" << std::setw(11) << std::right << "5" << std::endl;
     std::cout << "Longest Streak:" << std::setw(11) << std::right << "5" << std::endl;
     std::cout << std::endl;
