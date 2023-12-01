@@ -1,7 +1,6 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include <ostream>
 #define YELLOW "\033[33m"
 #define GRAY "\033[90m"
 #define GREEN "\033[32m"
@@ -9,6 +8,7 @@
 #define BOLD "\033[1m"
 #define RESET "\033[0m"
 
+#include <ostream>
 #include <string>
 #include <vector>
 #include <fstream>
