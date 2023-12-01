@@ -59,13 +59,14 @@ void showStatistics() {
 
     // Calculate average attempts
     int attempts = 0;
+    int wordCount = wordAttemptMap.size();
     for (const auto& entry : wordAttemptMap) {
         // Only consider words that were solved at least once
         if (entry.second.second) {
             attempts += entry.second.first;
         }
     }
-    int averageAttempts = attempts / wordAttemptMap.size();
+    int averageAttempts = wordCount == 0 ? 0 : attempts / wordCount;
 
     // Calculate win rate
     int wins = 0;
@@ -74,7 +75,7 @@ void showStatistics() {
             wins++;
         }
     }
-    float winRate = wins / ((float) statCount); // cast to float to prevent integer division
+    float winRate = statCount == 0 ? 0 : wins / ((float) statCount); // cast to float to prevent integer division
 
     // Calculate current streak
     int currentStreak = 0;
