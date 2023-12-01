@@ -172,7 +172,7 @@ void showMainMenu() {
                 break;
         }
 
-        if (option >= 1 && option <= 5) {
+        if (option > 0 && option < 5) {
             std::cout << "Press [enter] to continue" << std::endl;
             std::cin.ignore();
             std::cin.get();
