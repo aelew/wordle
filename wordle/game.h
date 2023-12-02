@@ -6,6 +6,8 @@
 
 struct Game {
     void play() {
+        clearKeyData();
+
         // Get words from `words.txt`
         std::vector<std::string> words = getWords();
         if (words.size() == 0) {

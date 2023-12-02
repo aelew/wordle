@@ -14,6 +14,13 @@
 #include <fstream>
 #include <iostream>
 #include "statistic.h"
+#include "key.h"
+
+std::vector<std::vector<char>> keyboardRows = {
+    { 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P' },
+    { 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L' },
+    { 'Z', 'X', 'C', 'V', 'B', 'N', 'M' }
+};
 
 std::vector<std::string> getWords() {
     std::vector<std::string> words;
@@ -96,6 +103,32 @@ void clearStatistics() {
     file.close();
 }
 
+std::vector<Key> getKeys() {
+    std::vector<Key> keys;
+
+    std::ifstream file;
+    file.open("../keys.txt", std::ios::in);
+    if (!file.is_open()) {
+        return keys;
+    }
+
+    std::string line;
+    while (getline(file, line)) {
+        std::vector<std::string> parts = split(line, ',');
+        Key key(parts[0][0], parts[1]);
+        keys.push_back(key);
+    }
+
+    file.close();
+    return keys;
+}
+
+void clearKeyData() {
+    std::ofstream file;
+    file.open("../keys.txt", std::ofstream::out);
+    file.close();
+}
+
 int getRandomNumber(int min, int max) {
     srand((unsigned) time(NULL));
     int range = max - min + 1;
@@ -148,6 +181,31 @@ std::string gray(std::string text) {
     return result;
 }
 
+void updateKeyState(char letter, std::string color) {
+    std::vector<Key> keys = getKeys();
+    if (keys.size() == 0) {
+        for (int i = 0; i < keyboardRows.size(); i++) {
+            for (int j = 0; j < keyboardRows[i].size(); j++) {
+                char letter = keyboardRows[i][j];
+                keys.push_back(Key(letter, RESET));
+            }
+        }
+    }
+
+    std::ofstream file;
+    file.open("../keys.txt", std::ios::trunc);
+
+    for (int i = 0; i < keys.size(); i++) {
+        Key key = keys[i];
+        if (key.letter == letter) {
+            key.color = color;
+        }
+        file << key.letter << ',' << key.color << std::endl;
+    }
+
+    file.close();
+}
+
 bool checkAttempt(std::string solution, std::string attempt) {
     int correctCount = 0;
 
@@ -172,10 +230,12 @@ bool checkAttempt(std::string solution, std::string attempt) {
     std::string firstLine = "", secondLine = "", thirdLine = "";
 
     for (int i = 0; i < attempt.length(); i++) {
+        char letter = attempt[i];
+
         std::string firstLineText = " --- ";
 
         std::string secondLineText = "| ";
-        secondLineText += attempt[i];
+        secondLineText += letter;
         secondLineText += " |";
 
         std::string thirdLineText = " --- ";
@@ -184,14 +244,17 @@ bool checkAttempt(std::string solution, std::string attempt) {
             firstLine += green(firstLineText);
             secondLine += green(secondLineText);
             thirdLine += green(thirdLineText);
+            updateKeyState(letter, GREEN);
         } else if (contains(yellowPos, i)) {
             firstLine += yellow(firstLineText);
             secondLine += yellow(secondLineText);
             thirdLine += yellow(thirdLineText);
+            updateKeyState(letter, YELLOW);
         } else {
             firstLine += gray(firstLineText);
             secondLine += gray(secondLineText);
             thirdLine += gray(thirdLineText);
+            updateKeyState(letter, GRAY);
         }
     }
 
