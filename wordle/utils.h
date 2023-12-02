@@ -129,6 +129,17 @@ void clearKeyData() {
     file.close();
 }
 
+std::string getKeyColor(char letter) {
+    std::vector<Key> keys = getKeys();
+    for (int i = 0; i < keys.size(); i++) {
+        Key key = keys[i];
+        if (key.letter == letter) {
+            return key.color;
+        }
+    }
+    return RESET;
+}
+
 int getRandomNumber(int min, int max) {
     srand((unsigned) time(NULL));
     int range = max - min + 1;
@@ -206,7 +217,7 @@ void updateKeyState(char letter, std::string color) {
     file.close();
 }
 
-bool checkAttempt(std::string solution, std::string attempt) {
+std::vector<std::string> getColoredGuess(std::string solution, std::string attempt) {
     int correctCount = 0;
 
     std::vector<int> greenPos;
@@ -258,11 +269,7 @@ bool checkAttempt(std::string solution, std::string attempt) {
         }
     }
 
-    std::cout << firstLine << std::endl;
-    std::cout << secondLine << std::endl;
-    std::cout << thirdLine << std::endl;
-
-    return correctCount == solution.length();
+    return { firstLine, secondLine, thirdLine };
 }
 
 #endif
