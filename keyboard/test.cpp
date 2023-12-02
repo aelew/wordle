@@ -13,7 +13,7 @@ Context(WordleKeyboard) {
         file.close();
     }
     static void TearDownContext() {
-        clearKeyData();
+        clearFile("../keys.txt");
     }
     Spec(FirstRowColors) {
         Assert::That(getKeyColor('Q'), Equals(RESET));

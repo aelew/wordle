@@ -22,6 +22,31 @@ std::vector<std::vector<char>> keyboardRows = {
     { 'Z', 'X', 'C', 'V', 'B', 'N', 'M' }
 };
 
+std::vector<std::string> split(std::string str, char delimiter) {
+    std::vector<std::string> parts;
+    std::string currentPart = ""; 
+    for (int i = 0; i < str.size(); i++) {
+        if (str[i] == delimiter) {
+            if (currentPart != "") {
+                parts.push_back(currentPart);
+                currentPart = "";
+            } 
+            continue;
+        }
+        currentPart += str[i];
+    }
+    if (currentPart.size() != 0) {
+        parts.push_back(currentPart);
+    }
+    return parts;
+}
+
+void clearFile(std::string path) {
+    std::ofstream file;
+    file.open(path, std::ofstream::trunc);
+    file.close();
+}
+
 std::vector<std::string> getWords() {
     std::vector<std::string> words;
 
@@ -58,25 +83,6 @@ std::vector<std::string> getAllowedWords() {
     return words;
 }
 
-std::vector<std::string> split(std::string str, char delimiter) {
-    std::vector<std::string> parts;
-    std::string currentPart = ""; 
-    for (int i = 0; i < str.size(); i++) {
-        if (str[i] == delimiter) {
-            if (currentPart != "") {
-                parts.push_back(currentPart);
-                currentPart = "";
-            } 
-            continue;
-        }
-        currentPart += str[i];
-    }
-    if (currentPart.size() != 0) {
-        parts.push_back(currentPart);
-    }
-    return parts;
-}
-
 std::vector<Statistic> getStatistics() {
     std::vector<Statistic> stats;
 
@@ -97,12 +103,6 @@ std::vector<Statistic> getStatistics() {
     return stats;
 }
 
-void clearStatistics() {
-    std::ofstream file;
-    file.open("stats.txt", std::ofstream::trunc);
-    file.close();
-}
-
 std::vector<Key> getKeys() {
     std::vector<Key> keys;
 
@@ -121,12 +121,6 @@ std::vector<Key> getKeys() {
 
     file.close();
     return keys;
-}
-
-void clearKeyData() {
-    std::ofstream file;
-    file.open("../keys.txt", std::ofstream::trunc);
-    file.close();
 }
 
 std::string getKeyColor(char letter) {
