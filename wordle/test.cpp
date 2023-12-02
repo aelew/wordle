@@ -2,12 +2,12 @@
 
 using namespace igloo;
 
-Context(TODO){
+Context(WordleTests) {
     /*
         your test cases here
     */
 };
 
-int main(int argc, const char* argv[]){
+int main(int argc, const char* argv[]) {
     return TestRunner::RunAllTests(argc, argv);
 }

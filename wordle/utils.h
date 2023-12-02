@@ -99,7 +99,7 @@ std::vector<Statistic> getStatistics() {
 
 void clearStatistics() {
     std::ofstream file;
-    file.open("stats.txt", std::ofstream::out);
+    file.open("stats.txt", std::ofstream::trunc);
     file.close();
 }
 
@@ -125,7 +125,7 @@ std::vector<Key> getKeys() {
 
 void clearKeyData() {
     std::ofstream file;
-    file.open("../keys.txt", std::ofstream::out);
+    file.open("../keys.txt", std::ofstream::trunc);
     file.close();
 }
 
