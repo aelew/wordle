@@ -40,7 +40,6 @@ struct Wordle {
 
         // Select a random word
         std::string solution = strtoupper(words[randomWordIndex]);
-        // std::string solution = "SOLVE";
 
         bool solved = false;
         int remainingTries = 6;
@@ -127,12 +126,12 @@ struct Wordle {
         std::cout << " --- " << yellow(" --- ") << " ---  ---  --- " << std::endl;
         std::cout << "| P |" << yellow("| I |") << "| L || L || S |" << std::endl;
         std::cout << " --- " << yellow(" --- ") << " ---  ---  --- " << std::endl;
-        std::cout << BOLD << "I" << RESET << " is in the word and in the correct spot." << std::endl;
+        std::cout << BOLD << "I" << RESET << " is in the word but in the wrong spot." << std::endl;
         std::cout << std::endl;
         std::cout << " ---  ---  --- " << gray(" --- ") << " --- " << std::endl;
         std::cout << "| V || A || G |" << gray("| U |") << "| E | " << std::endl;
         std::cout << " ---  ---  --- " << gray(" --- ") << " --- " << std::endl;
-        std::cout << BOLD << "U" << RESET << " is in the word and in the correct spot." << std::endl;
+        std::cout << BOLD << "U" << RESET << " is not in the word in any spot." << std::endl;
         std::cout << std::endl;
         std::cout << std::endl;
     }
