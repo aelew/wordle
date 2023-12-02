@@ -214,7 +214,7 @@ struct Wordle {
         std::cout << "--------------------------" << std::endl;
         std::cout << "WORD     ATTEMPTS      WIN" << std::endl;
         std::cout << "--------------------------" << std::endl;
-        for (const auto& entry : wordAttemptMap) {
+        for (const auto entry : wordAttemptMap) {
             std::cout << entry.first << std::setw(12) << entry.second.first << std::setw(9) << std::right << (entry.second.second ? "Yes" : "No") << std::endl;
         }
         std::cout << std::endl;
