@@ -5,17 +5,6 @@
 
 using namespace std;
 
-string getKeyColor(char letter) {
-    std::vector<Key> keys = getKeys();
-    for (int i = 0; i < keys.size(); i++) {
-        Key key = keys[i];
-        if (key.letter == letter) {
-            return key.color;
-        }
-    }
-    return RESET;
-}
-
 int main(int argc, char* argv[]) {
     while (true) {
         system("clear");
